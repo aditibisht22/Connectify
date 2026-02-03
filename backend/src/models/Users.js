@@ -64,6 +64,12 @@ UserSchema.pre("save", async function(next){
     }
 });
 
+UserSchema.methods.matchPassword = async function(enteredPassword){
+
+    const isPasswordCorrect = await bcrypt.compare(enteredPassword, this.password);
+    return isPasswordCorrect;
+};
+
 const User = mongoose.model("User", UserSchema);
 
 export default User;
